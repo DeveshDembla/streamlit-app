@@ -75,7 +75,7 @@ if uploaded_file:
     fig, ax = plt.subplots(figsize=(8, 6))
     
     # Set a background color for the figure
-    fig.patch.set_facecolor('#f5f5f5')  # Light grey background
+    fig.patch.set_facecolor('#D3D3D3')  # Light grey background
     
     # Set a background color for the axes
     ax.set_facecolor('#eaeaea')  # Slightly darker grey for the chart area
