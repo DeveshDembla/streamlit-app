@@ -44,18 +44,11 @@ if uploaded_file:
     correlation_matrix = returns.corr()
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
-    #plt.xticks(rotation=45, ha="right", fontsize=10, color="white", weight="bold")
-    #plt.yticks(rotation=0, fontsize=10, color="white", weight="bold")
-    ax.set_xticklabels(
-    ax.get_xticklabels(),
-    rotation=45,  # Rotate x-axis labels
-    ha="right",  # Align them to the right
-    fontsize=10, color="white", weight="bold" ) # Style the font
+    ax.set_xticks(np.arange(len(corr_matrix.columns)) + 0.5)  # Position ticks in the center of cells
+    ax.set_yticks(np.arange(len(corr_matrix.index)) + 0.5)
+    ax.set_xticklabels(corr_matrix.columns, rotation=45, ha="right", fontsize=10, color="white", weight="bold")
+    ax.set_yticklabels(corr_matrix.index, rotation=0, fontsize=10, color="white", weight="bold")
     
-    ax.set_yticklabels(
-       ax.get_yticklabels(),
-       rotation=0,  # Keep y-axis labels horizontal
-       fontsize=10, color="white", weight="bold")  # Style the font
     
 
     st.pyplot(fig)
