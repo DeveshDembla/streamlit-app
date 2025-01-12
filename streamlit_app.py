@@ -88,7 +88,7 @@ if uploaded_file:
         startangle=140,
         colors=colors,
         wedgeprops={"edgecolor": "k", "linewidth": 1.5},  # Add borders
-        textprops={"fontsize": 10}  # Text size for better readability
+        textprops={"fontsize": 10, "weight": "bold"}  # Text size for better readability
     )
     
     # Style the percentage text
