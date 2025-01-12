@@ -32,7 +32,31 @@ if uploaded_file:
         data[column] = data[column].replace(",", "", regex=True).astype(float)
         data[column] = pd.to_numeric(data[column], errors='coerce')
     data = data.dropna()
+    
+    st.subheader("Objective")
+    st.markdown(
+    """
+    
+    The investor has a portfolio of **$100 million** and seeks to optimize its allocation across 
+    the following four identified asset classes:
 
+    - **US Large Cap Value**
+    - **US Large Cap Growth**
+    - **US Large Cap Quality**
+    - **US Large Cap Minimum Volatility**
+
+    The portfolio's performance is benchmarked against the **MSCI USA Index**, which serves as a 
+    proxy for these asset classes. Historical performance data for the MSCI USA factor benchmarks 
+    has been sourced from publicly available datasets.
+
+    The objective is to construct a portfolio that maximizes risk-adjusted returns using traditional 
+    MVO, taking into account expected returns, volatility, and correlations among the assets. 
+
+    Additionally, the app will analyze the portfolio's active risk relative to the MSCI USA Index and 
+    provide relevant risk analytics to better understand portfolio positioning and performance.
+    """
+    )
+    
     st.subheader("Uploaded Data Preview")
     st.dataframe(data.head())
 
@@ -155,4 +179,3 @@ if uploaded_file:
         active_risk = np.std(active_returns) * np.sqrt(12)
 
         st.write(f"Active Risk (Tracking Error): {active_risk:.2%}")
-
