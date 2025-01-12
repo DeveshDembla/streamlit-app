@@ -71,27 +71,38 @@ if uploaded_file:
     # Pie Chart for Portfolio Weights
     colors = plt.cm.tab20c(range(len(cleaned_weights)))
 
-    # Create the figure and axis
-    fig, ax = plt.subplots(figsize=(8, 6))
-    
-    # Customize the pie chart
-    wedges, texts, autotexts = ax.pie(
-        cleaned_weights.values(),
-        labels=cleaned_weights.keys(),
-        autopct="%.1f%%",
-        startangle=140,             # Start angle for better layout
-        colors=colors,              # Apply custom colors
-        wedgeprops={"edgecolor": "k", "linewidth": 1.5},  # Add borders
-        textprops={"fontsize": 10}  # Text size for better readability
-    )
-    
-    # Title and formatting
-    ax.set_title("Optimized Portfolio Allocation", fontsize=14, weight="bold")
-    plt.setp(autotexts, size=9, weight="bold", color="white")  # Style percentage text
-    plt.setp(texts, size=10)  # Style labels
-    
-    # Display the chart in Streamlit
-    st.pyplot(fig)
+   # Create the figure and axis
+   fig, ax = plt.subplots(figsize=(8, 6))
+   
+   # Set a background color for the figure
+   fig.patch.set_facecolor('#f5f5f5')  # Light grey background
+   
+   # Set a background color for the axes
+   ax.set_facecolor('#eaeaea')  # Slightly darker grey for the chart area
+   
+   # Customize the pie chart
+   wedges, texts, autotexts = ax.pie(
+       cleaned_weights.values(),
+       labels=cleaned_weights.keys(),
+       autopct="%.1f%%",
+       startangle=140,
+       colors=colors,
+       wedgeprops={"edgecolor": "k", "linewidth": 1.5},  # Add borders
+       textprops={"fontsize": 10}  # Text size for better readability
+   )
+   
+   # Style the percentage text
+   plt.setp(autotexts, size=9, weight="bold", color="white")  
+   plt.setp(texts, size=10)
+   
+   # Add a title with a contrasting color
+   ax.set_title("Optimized Portfolio Allocation", fontsize=14, weight="bold", color="#333333")
+   
+   # Remove axes for a cleaner look
+   ax.axis("equal")  # Ensure the pie chart is circular
+   
+   # Display the chart in Streamlit
+   st.pyplot(fig)
 
     # Portfolio Metrics
     st.subheader("Portfolio Performance")
