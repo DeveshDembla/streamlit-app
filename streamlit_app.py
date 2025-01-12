@@ -38,8 +38,7 @@ if uploaded_file:
 
     # Calculate Returns
     fig, ax = plt.subplots(figsize=(8, 6))
-    fig.patch.set_facecolor('#D3D3D3')
-    ax.set_facecolor('#D3D3D3')
+    
     returns = data.pct_change().dropna()
     st.subheader("Correlation Matrix")
     correlation_matrix = returns.corr()
@@ -47,6 +46,17 @@ if uploaded_file:
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
     #plt.xticks(rotation=45, ha="right", fontsize=10, color="white", weight="bold")
     #plt.yticks(rotation=0, fontsize=10, color="white", weight="bold")
+    ax.set_xticklabels(
+    ax.get_xticklabels(),
+    rotation=45,  # Rotate x-axis labels
+    ha="right",  # Align them to the right
+    fontsize=10, color="white", weight="bold"  # Style the font
+    )
+   ax.set_yticklabels(
+       ax.get_yticklabels(),
+       rotation=0,  # Keep y-axis labels horizontal
+       fontsize=10, color="white", weight="bold"  # Style the font
+    )
 
     st.pyplot(fig)
 
