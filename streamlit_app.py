@@ -81,7 +81,12 @@ if uploaded_file:
     # Step 2: Mean-Variance Optimization
     expected_returns = mean_historical_return(data, frequency=12, compounding=True)
     cov_matrix = CovarianceShrinkage(data, frequency=12).ledoit_wolf()
-
+    
+    
+    optimization_method = st.sidebar.selectbox(
+        "Select Optimization Method",
+        ["Max Sharpe", "Efficient Return", "Minimum Volatility"]
+    )
 
     # User input for weight bounds
     st.sidebar.header("Customize Weight Bounds")
@@ -91,11 +96,29 @@ if uploaded_file:
     st.sidebar.header("Set the risk-free rate")
     rfr = st.sidebar.slider("Risk Free Rate", 0.0, 0.06, 0.03, 0.01)
     
+    st.sidebar.header("Set the target return")
+    target_return = st.sidebar.slider("Target Return", 0.05, 0.30, 0.08, 0.01)
+    
+    # Add dropdown for selecting optimization method
+    
+
+    
     if lower_bound >= upper_bound:
         st.error("Lower bound must be less than upper bound")   
     else:
         ef = EfficientFrontier(expected_returns, cov_matrix, weight_bounds=(lower_bound, upper_bound))
-        weights = ef.max_sharpe(risk_free_rate=rfr)
+        
+        if optimization_method == "Max Sharpe":
+            weights = ef.max_sharpe(risk_free_rate=rfr)
+            optimization_label = "Max Sharpe"
+        elif optimization_method == "Efficient Return":
+            weights = ef.efficient_return(target_return)
+            optimization_label = f"Efficient Return ({target_return*100}%)"
+        else:  # Minimum Volatility
+            weights = ef.min_volatility()
+            optimization_label = "Minimum Volatility"
+        
+        
         cleaned_weights = ef.clean_weights()
         expected_return, portfolio_volatility, sharpe_ratio = ef.portfolio_performance(risk_free_rate=rfr)
 
@@ -134,6 +157,7 @@ if uploaded_file:
     
     # Remove axes for a cleaner look
     ax.axis("equal")  # Ensure the pie chart is circular
+    plt.show()
     
     # Display the chart in Streamlit
     st.pyplot(fig)
