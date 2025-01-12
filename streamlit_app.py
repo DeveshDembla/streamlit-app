@@ -102,7 +102,7 @@ if uploaded_file:
     )
     
     # Style the percentage text
-    plt.setp(autotexts, size=9, weight="bold", color="white")  
+    plt.setp(autotexts, size=9, weight="bold", color="black")  
     plt.setp(texts, size=10)
     
     # Add a title with a contrasting color
