@@ -90,14 +90,14 @@ if uploaded_file:
 
     # User input for weight bounds
     st.sidebar.header("Customize Weight Bounds")
-    lower_bound = st.sidebar.slider("Lower Bound", 0.0, 1.0, 0.2, 0.01)
+    lower_bound = st.sidebar.slider("Lower Bound", 0.0, 0.25, 0, 0.005)
     upper_bound = st.sidebar.slider("Upper Bound", 0.0, 1.0, 0.5, 0.01)
     
     st.sidebar.header("Set the risk-free rate")
     rfr = st.sidebar.slider("Risk Free Rate", 0.0, 0.06, 0.03, 0.01)
     
     st.sidebar.header("Set the target return")
-    target_return = st.sidebar.slider("Target Return", 0.05, 0.15, 0.08, 0.01)
+    target_return = st.sidebar.slider("Target Return", 0.05, 0.11, 0.08, 0.01)
     
     # Add dropdown for selecting optimization method
     
