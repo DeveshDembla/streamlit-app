@@ -44,10 +44,10 @@ if uploaded_file:
     correlation_matrix = returns.corr()
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
-    ax.set_xticks(np.arange(len(corr_matrix.columns)) + 0.5)  # Position ticks in the center of cells
-    ax.set_yticks(np.arange(len(corr_matrix.index)) + 0.5)
-    ax.set_xticklabels(corr_matrix.columns, rotation=45, ha="right", fontsize=10, color="white", weight="bold")
-    ax.set_yticklabels(corr_matrix.index, rotation=0, fontsize=10, color="white", weight="bold")
+    ax.set_xticks(np.arange(len(correlation_matrix.columns)) + 0.5)  # Position ticks in the center of cells
+    ax.set_yticks(np.arange(len(correlation_matrix.index)) + 0.5)
+    ax.set_xticklabels(correlation_matrix.columns, rotation=45, ha="right", fontsize=10, color="white", weight="bold")
+    ax.set_yticklabels(correlation_matrix.index, rotation=0, fontsize=10, color="white", weight="bold")
     
     
 
