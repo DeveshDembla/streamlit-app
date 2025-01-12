@@ -37,22 +37,22 @@ if uploaded_file:
     st.markdown(
     """
     
-    The investor has a portfolio of **$100 million** and seeks to optimize its allocation across 
+    >The investor has a portfolio of **$100 million** and seeks to optimize its allocation across 
     the following four identified asset classes:
 
-    - **US Large Cap Value**
-    - **US Large Cap Growth**
-    - **US Large Cap Quality**
-    - **US Large Cap Minimum Volatility**
+    >- **US Large Cap Value**
+    >- **US Large Cap Growth**
+    >- **US Large Cap Quality**
+    >- **US Large Cap Minimum Volatility**
 
-    The portfolio's performance is benchmarked against the **MSCI USA Index**, which serves as a 
+    >The portfolio's performance is benchmarked against the **MSCI USA Index**, which serves as a 
     proxy for these asset classes. Historical performance data for the MSCI USA factor benchmarks 
     has been sourced from publicly available datasets.
 
-    The objective is to construct a portfolio that maximizes risk-adjusted returns using traditional 
+    >The objective is to construct a portfolio that maximizes risk-adjusted returns using traditional 
     MVO, taking into account expected returns, volatility, and correlations among the assets. 
 
-    Additionally, the app will analyze the portfolio's active risk relative to the MSCI USA Index and 
+    >Additionally, the app will analyze the portfolio's active risk relative to the MSCI USA Index and 
     provide relevant risk analytics to better understand portfolio positioning and performance.
     """
     )
