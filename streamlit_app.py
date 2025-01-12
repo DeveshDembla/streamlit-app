@@ -37,13 +37,16 @@ if uploaded_file:
     st.dataframe(data.head())
 
     # Calculate Returns
+
+    fig.patch.set_facecolor('#2b2b2b')
+    ax.set_facecolor('#2b2b2b')
     returns = data.pct_change().dropna()
     st.subheader("Correlation Matrix")
     correlation_matrix = returns.corr()
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
-    plt.xticks(rotation=45, ha="right", fontsize=10, color="white", weight="bold")
-    plt.yticks(rotation=0, fontsize=10, color="white", weight="bold")
+    sns.xticks(rotation=45, ha="right", fontsize=10, color="white", weight="bold")
+    sns.yticks(rotation=0, fontsize=10, color="white", weight="bold")
 
     st.pyplot(fig)
 
