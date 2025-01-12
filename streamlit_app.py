@@ -82,9 +82,9 @@ if uploaded_file:
     expected_returns = mean_historical_return(data, frequency=12, compounding=True)
     cov_matrix = CovarianceShrinkage(data, frequency=12).ledoit_wolf()
     
-    
+    st.sidebar.header("Select Optimization Method")
     optimization_method = st.sidebar.selectbox(
-        "Select Optimization Method",
+        "The traditional MVO minimizes risk for a certain target return - Efficient Return but we have a couple of other options available",
         ["Efficient Return", "Max Sharpe", "Minimum Volatility"]
     )
 
