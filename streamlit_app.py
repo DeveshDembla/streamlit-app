@@ -38,8 +38,8 @@ if uploaded_file:
 
     # Calculate Returns
     fig, ax = plt.subplots(figsize=(8, 6))
-    fig.patch.set_facecolor('#eeeeee')
-    ax.set_facecolor('#eeeeee')
+    fig.patch.set_facecolor('#D3D3D3')
+    ax.set_facecolor('#D3D3D3')
     returns = data.pct_change().dropna()
     st.subheader("Correlation Matrix")
     correlation_matrix = returns.corr()
