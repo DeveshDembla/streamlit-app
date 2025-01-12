@@ -42,6 +42,9 @@ if uploaded_file:
     correlation_matrix = returns.corr()
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
+    plt.xticks(rotation=45, ha="right", fontsize=10, color="white", weight="bold")
+    plt.yticks(rotation=0, fontsize=10, color="white", weight="bold")
+
     st.pyplot(fig)
 
     # Step 2: Mean-Variance Optimization
