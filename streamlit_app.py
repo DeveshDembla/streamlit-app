@@ -45,8 +45,8 @@ if uploaded_file:
     correlation_matrix = returns.corr()
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
-    sns.xticks(rotation=45, ha="right", fontsize=10, color="white", weight="bold")
-    sns.yticks(rotation=0, fontsize=10, color="white", weight="bold")
+    plt.xticks(rotation=45, ha="right", fontsize=10, color="white", weight="bold")
+    plt.yticks(rotation=0, fontsize=10, color="white", weight="bold")
 
     st.pyplot(fig)
 
