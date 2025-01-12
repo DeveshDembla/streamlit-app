@@ -50,13 +50,13 @@ if uploaded_file:
     ax.get_xticklabels(),
     rotation=45,  # Rotate x-axis labels
     ha="right",  # Align them to the right
-    fontsize=10, color="white", weight="bold"  # Style the font
-    )
-   ax.set_yticklabels(
+    fontsize=10, color="white", weight="bold" ) # Style the font
+    
+    ax.set_yticklabels(
        ax.get_yticklabels(),
        rotation=0,  # Keep y-axis labels horizontal
-       fontsize=10, color="white", weight="bold"  # Style the font
-    )
+       fontsize=10, color="white", weight="bold")  # Style the font
+    
 
     st.pyplot(fig)
 
