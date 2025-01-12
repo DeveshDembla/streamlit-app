@@ -90,7 +90,7 @@ if uploaded_file:
 
     # User input for weight bounds
     st.sidebar.header("Customize Weight Bounds")
-    lower_bound = st.sidebar.slider("Lower Bound", 0.0, 0.2, 0.0, 0.01)
+    lower_bound = st.sidebar.slider("Lower Bound", 0.0, 0.25, 0.0, 0.01)
     upper_bound = st.sidebar.slider("Upper Bound", 0.0, 1.0, 0.5, 0.01)
     
     st.sidebar.header("Set the risk-free rate")
