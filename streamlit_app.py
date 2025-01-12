@@ -69,9 +69,28 @@ if uploaded_file:
     st.write(cleaned_weights)
 
     # Pie Chart for Portfolio Weights
-    fig, ax = plt.subplots(figsize=(6, 4))
-    plt.pie(cleaned_weights.values(), labels=cleaned_weights.keys(), autopct="%.1f%%")
-    plt.title("Optimized Portfolio Allocation")
+    colors = plt.cm.tab20c(range(len(cleaned_weights)))
+
+    # Create the figure and axis
+    fig, ax = plt.subplots(figsize=(8, 6))
+    
+    # Customize the pie chart
+    wedges, texts, autotexts = ax.pie(
+        cleaned_weights.values(),
+        labels=cleaned_weights.keys(),
+        autopct="%.1f%%",
+        startangle=140,             # Start angle for better layout
+        colors=colors,              # Apply custom colors
+        wedgeprops={"edgecolor": "k", "linewidth": 1.5},  # Add borders
+        textprops={"fontsize": 10}  # Text size for better readability
+    )
+    
+    # Title and formatting
+    ax.set_title("Optimized Portfolio Allocation", fontsize=14, weight="bold")
+    plt.setp(autotexts, size=9, weight="bold", color="white")  # Style percentage text
+    plt.setp(texts, size=10)  # Style labels
+    
+    # Display the chart in Streamlit
     st.pyplot(fig)
 
     # Portfolio Metrics
