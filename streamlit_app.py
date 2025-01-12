@@ -117,7 +117,7 @@ if uploaded_file:
     # Customize the pie chart
     wedges, texts, autotexts = ax.pie(
         cleaned_weights.values(),
-        labels=cleaned_weights.keys(),
+        labels=labels=[label if weight > 0 else "" for label, weight in cleaned_weights.items()],
         autopct="%.1f%%",
         startangle=140,
         colors=colors,
