@@ -85,7 +85,7 @@ if uploaded_file:
     
     optimization_method = st.sidebar.selectbox(
         "Select Optimization Method",
-        ["Max Sharpe", "Efficient Return", "Minimum Volatility"]
+        ["Efficient Return", "Max Sharpe", "Minimum Volatility"]
     )
 
     # User input for weight bounds
@@ -97,7 +97,7 @@ if uploaded_file:
     rfr = st.sidebar.slider("Risk Free Rate", 0.0, 0.06, 0.03, 0.01)
     
     st.sidebar.header("Set the target return")
-    target_return = st.sidebar.slider("Target Return", 0.05, 0.30, 0.08, 0.01)
+    target_return = st.sidebar.slider("Target Return", 0.05, 0.15, 0.08, 0.01)
     
     # Add dropdown for selecting optimization method
     
