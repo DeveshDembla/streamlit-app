@@ -67,7 +67,7 @@ if uploaded_file:
     st.subheader("Correlation Matrix")
     correlation_matrix = returns.corr()
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
+    sns.heatmap(correlation_matrix, annot=True, cmap="Blues", fmt=".2f")
     plt.gcf().set_facecolor('#D3D3D3')
     ax.set_xticks(np.arange(len(correlation_matrix.columns)) + 0.5)  # Position ticks in the center of cells
     ax.set_yticks(np.arange(len(correlation_matrix.index)) + 0.5)
