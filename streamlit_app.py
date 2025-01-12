@@ -37,7 +37,7 @@ if uploaded_file:
     st.dataframe(data.head())
 
     # Calculate Returns
-
+    fig, ax = plt.subplots(figsize=(8, 6))
     fig.patch.set_facecolor('#2b2b2b')
     ax.set_facecolor('#2b2b2b')
     returns = data.pct_change().dropna()
