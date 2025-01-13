@@ -91,7 +91,7 @@ if uploaded_file:
     # User input for weight bounds
     st.sidebar.header("Customize Weight Bounds")
     lower_bound = st.sidebar.slider("Lower Bound", 0.0, 0.25, 0.0, 0.01)
-    upper_bound = st.sidebar.slider("Upper Bound", 0.0, 1.0, 0.5, 0.01)
+    upper_bound = st.sidebar.slider("Upper Bound", 0.0, 1.0, 1, 0.01)
     
     st.sidebar.header("Set the risk-free rate")
     rfr = st.sidebar.slider("Risk Free Rate", 0.0, 0.06, 0.03, 0.01)
@@ -100,13 +100,13 @@ if uploaded_file:
     target_return = st.sidebar.slider("Target Return", 0.05, 0.11, 0.08, 0.01)
     
     # Add dropdown for selecting optimization method
-    
 
     
     if lower_bound >= upper_bound:
         st.error("Lower bound must be less than upper bound")   
     else:
         ef = EfficientFrontier(expected_returns, cov_matrix, weight_bounds=(lower_bound, upper_bound))
+        plotting.plot_efficient_frontier(ef, ax=ax, show_assets=True)
         
         if optimization_method == "Max Sharpe":
             weights = ef.max_sharpe(risk_free_rate=rfr)
@@ -164,12 +164,13 @@ if uploaded_file:
     
     
     # Efficient Frontier Plot
+    st.subheader("Efficient Frontier")
     fig, ax = plt.subplots(figsize=(8, 6))
     fig.patch.set_facecolor('#D3D3D3')  # Light grey background for the figure
     ax.set_facecolor('#eaeaea')         # Slightly darker grey for the chart area
 
     # Plot the efficient frontier
-    plotting.plot_efficient_frontier(ef, ax=ax, show_assets=True)
+    
 
     # Highlight the selected portfolio on the frontier
     ax.scatter(portfolio_volatility, expected_return, marker="*", s=100, c="red", label=f"{optimization_label} Portfolio")
