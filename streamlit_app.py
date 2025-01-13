@@ -163,6 +163,29 @@ if uploaded_file:
     st.pyplot(fig)
     
     
+    # Efficient Frontier Plot
+    fig, ax = plt.subplots(figsize=(8, 6))
+    fig.patch.set_facecolor('#D3D3D3')  # Light grey background for the figure
+    ax.set_facecolor('#eaeaea')         # Slightly darker grey for the chart area
+
+    # Plot the efficient frontier
+    plotting.plot_efficient_frontier(ef, ax=ax, show_assets=True)
+
+    # Highlight the selected portfolio on the frontier
+    ax.scatter(portfolio_volatility, expected_return, marker="*", s=100, c="red", label=f"{optimization_label} Portfolio")
+
+    # Chart styling
+    ax.set_title("Efficient Frontier", fontsize=14, weight="bold", color="#333333")
+    ax.set_xlabel("Volatility (Standard Deviation)", fontsize=12, weight="bold", color="#333333")
+    ax.set_ylabel("Expected Return", fontsize=12, weight="bold", color="#333333")
+    ax.legend()
+    plt.tight_layout()
+
+    # Display the plot in Streamlit
+    st.subheader("Efficient Frontier")
+    st.pyplot(fig)
+    
+    
 
     # Portfolio Metrics
     st.subheader("Portfolio Performance")
@@ -191,7 +214,7 @@ if uploaded_file:
     st.pyplot(fig)
 
     # Active Risk and Additional Metrics
-    st.subheader("Risk Metrics")
+    st.subheader("Benchmark relative metrics")
     benchmark_file = st.file_uploader("Upload Benchmark Data (Excel)", type=["xlsx"])
     if benchmark_file:
         bmk_data = pd.read_excel(benchmark_file, parse_dates=True, index_col=0)
