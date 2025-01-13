@@ -234,7 +234,7 @@ if uploaded_file:
         st.write(f"Active Risk (Tracking Error): {active_risk:.2%}")
         st.write(f"Sortino Ratio: {sortino_ratio:.2f}")
         st.write(f"Beta: {beta:.2f}")
-        st.write(f"Alpha: {alpha:.2f}")        
+        st.write(f"Alpha: {alpha:.2%}")        
         st.write(f"Information Ratio: {information_ratio:.2f}")
         
         
