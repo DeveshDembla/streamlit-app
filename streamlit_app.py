@@ -161,6 +161,8 @@ if uploaded_file:
     
     # Display the chart in Streamlit
     st.pyplot(fig)
+    
+    
 
     # Portfolio Metrics
     st.subheader("Portfolio Performance")
@@ -201,5 +203,39 @@ if uploaded_file:
 
         active_returns = portfolio_returns - benchmark_returns
         active_risk = np.std(active_returns) * np.sqrt(12)
+        
+        #Additional Analytics
+        mrfr = rfr / 12  # Monthly risk-free rate (3% annualized)
+        excess_returns = returns['Portfolio'] - mrfr
+
+        #Sortino Ratio
+        downside_returns = excess_returns[excess_returns < 0]
+        downside_risk = np.sqrt((downside_returns ** 2).mean()) * np.sqrt(12)  # Annualized
+        sortino_ratio = (excess_returns.mean() * 12) / downside_risk
+
+        #Beta
+        covariance = np.cov(returns['Portfolio'], returns['MSCI USA'])[0, 1]
+        benchmark_variance = np.var(returns['MSCI USA'])
+        beta = covariance / benchmark_variance
+
+        #Portfolio Alpha
+        portfolio_return = returns['Portfolio'].mean() * 12  # Annualized portfolio return
+        benchmark_return = returns['MSCI USA'].mean() * 12  # Annualized benchmark return
+        alpha = portfolio_return - (rfr + beta * (benchmark_return - rfr))
+
+        #Information Ratio
+        information_ratio = (portfolio_return - benchmark_return) / active_risk
+        
 
         st.write(f"Active Risk (Tracking Error): {active_risk:.2%}")
+        st.write(f"Sortino Ratio: {sortino_ratio:.2f}")
+        st.write(f"Beta: {beta:.2f}")
+        st.write(f"Alpha: {alpha:.2f}")        
+        st.write(f"Information Ratio: {information_ratio:.2f}")
+        
+        
+        
+        
+        
+        
+        
