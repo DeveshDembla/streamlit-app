@@ -77,12 +77,29 @@ if uploaded_file:
     
 
     st.pyplot(fig)
+    
+    
 
-    # Step 2: Mean-Variance Optimization
+    # Mean-Variance Optimization
     expected_returns = mean_historical_return(data, frequency=12, compounding=True)
     cov_matrix = CovarianceShrinkage(data, frequency=12).ledoit_wolf()
     
+    asset_std_devs = (pd.Series(np.diag(cov_matrix)**0.5, index=expected_returns.index))
+
+    asset_assumptions = pd.DataFrame({"Expected Return": expected_returns, "Standard Deviation": asset_std_devs})
+    
+    st.subheader("Asset Risk and Return Assumptions")
+    st.write("Here are the expected returns and standard deviations for each asset:")
+    
+    # Display the asset assumptions DataFrame as a table in Streamlit
+    st.dataframe(asset_assumptions.style.format({
+        'Expected Return': '{:.2%}',  # Format as percentage
+        'Standard Deviation': '{:.2%}'  # Format as percentage
+    }), use_container_width=True)
+    
     st.sidebar.header("Select Optimization Method")
+    
+    # Add dropdown for selecting optimization method
     optimization_method = st.sidebar.selectbox(
         "The traditional MVO minimizes risk for a certain target return - Efficient Return but we have a couple of other options available",
         ["Efficient Return", "Max Sharpe", "Minimum Volatility"]
@@ -91,7 +108,7 @@ if uploaded_file:
     # User input for weight bounds
     st.sidebar.header("Customize Weight Bounds")
     lower_bound = st.sidebar.slider("Lower Bound", 0.0, 0.25, 0.0, 0.01)
-    upper_bound = st.sidebar.slider("Upper Bound", 0.0, 1.0, 1, 0.01)
+    upper_bound = st.sidebar.slider("Upper Bound", 0.0, 1.0, 1.0, 0.01)
     
     st.sidebar.header("Set the risk-free rate")
     rfr = st.sidebar.slider("Risk Free Rate", 0.0, 0.06, 0.03, 0.01)
@@ -99,32 +116,58 @@ if uploaded_file:
     st.sidebar.header("Set the target return")
     target_return = st.sidebar.slider("Target Return", 0.05, 0.11, 0.08, 0.01)
     
-    # Add dropdown for selecting optimization method
+    
 
     
     if lower_bound >= upper_bound:
         st.error("Lower bound must be less than upper bound")   
     else:
         ef = EfficientFrontier(expected_returns, cov_matrix, weight_bounds=(lower_bound, upper_bound))
-        plotting.plot_efficient_frontier(ef, ax=ax, show_assets=True)
+        
         
         if optimization_method == "Max Sharpe":
             weights = ef.max_sharpe(risk_free_rate=rfr)
             optimization_label = "Max Sharpe"
+            
         elif optimization_method == "Efficient Return":
             weights = ef.efficient_return(target_return)
             optimization_label = f"Efficient Return ({target_return*100}%)"
+        
         else:  # Minimum Volatility
-            weights = ef.min_volatility()
+            weights = ef.min_volatility()            
             optimization_label = "Minimum Volatility"
         
         
         cleaned_weights = ef.clean_weights()
         expected_return, portfolio_volatility, sharpe_ratio = ef.portfolio_performance(risk_free_rate=rfr)
+        
+        
 
+    # Efficient Frontier Plot
+    
+    efplot = EfficientFrontier(expected_returns, cov_matrix, weight_bounds=(lower_bound, upper_bound))
+    fig, ax = plt.subplots()
+    fig.patch.set_facecolor('#D3D3D3')  # Light grey background for the figure
+    ax.set_facecolor('#eaeaea')   
+    
+    plotting.plot_efficient_frontier(efplot, ax=ax, show_assets=True)
+    # Highlight the selected portfolio on the frontier
+    ax.scatter(portfolio_volatility, expected_return, marker="*", s=100, c="red", label=f"{optimization_label} Portfolio")
+
+    # Chart styling
+    ax.set_title("Efficient Frontier", fontsize=14, weight="bold", color="#333333")
+    ax.set_xlabel("Volatility (Standard Deviation)", fontsize=12, weight="bold", color="#333333")
+    ax.set_ylabel("Expected Return", fontsize=12, weight="bold", color="#333333")
+    ax.legend()
+    plt.tight_layout()
+
+    # Display the plot in Streamlit
+    st.subheader("Efficient Frontier")
+    st.pyplot(fig)
+    
     st.subheader("Optimized Portfolio Weights")
     st.write(cleaned_weights)
-
+    
     # Pie Chart for Portfolio Weights
     colors = plt.cm.tab20c(range(len(cleaned_weights)))
 
@@ -163,28 +206,7 @@ if uploaded_file:
     st.pyplot(fig)
     
     
-    # Efficient Frontier Plot
-    st.subheader("Efficient Frontier")
-    fig, ax = plt.subplots(figsize=(8, 6))
-    fig.patch.set_facecolor('#D3D3D3')  # Light grey background for the figure
-    ax.set_facecolor('#eaeaea')         # Slightly darker grey for the chart area
-
-    # Plot the efficient frontier
     
-
-    # Highlight the selected portfolio on the frontier
-    ax.scatter(portfolio_volatility, expected_return, marker="*", s=100, c="red", label=f"{optimization_label} Portfolio")
-
-    # Chart styling
-    ax.set_title("Efficient Frontier", fontsize=14, weight="bold", color="#333333")
-    ax.set_xlabel("Volatility (Standard Deviation)", fontsize=12, weight="bold", color="#333333")
-    ax.set_ylabel("Expected Return", fontsize=12, weight="bold", color="#333333")
-    ax.legend()
-    plt.tight_layout()
-
-    # Display the plot in Streamlit
-    st.subheader("Efficient Frontier")
-    st.pyplot(fig)
     
     
 
