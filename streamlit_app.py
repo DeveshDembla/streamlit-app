@@ -205,6 +205,10 @@ if uploaded_file:
         active_risk = np.std(active_returns) * np.sqrt(12)
         
         #Additional Analytics
+        
+        returns['Portfolio'] = portfolio_returns
+        returns['MSCI USA'] = benchmark_returns
+        
         mrfr = rfr / 12  # Monthly risk-free rate (3% annualized)
         excess_returns = returns['Portfolio'] - mrfr
 
