@@ -1,0 +1,7 @@
+Case study solution 
+
+The MVO.py is a standalone python code without streamlit, Running the code in any Python Ide would produce the same results as seen on the Streamlit application.
+
+streamlit_app.py is the code that runs in the backend on [mvostatestreet.steamlit.app](https://mvostatestreet.streamlit.app)
+
+It allows for a GUI where users can tweak parameters and dynamically see the impact on charts and portfolio analytics.
