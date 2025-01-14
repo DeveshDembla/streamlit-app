@@ -19,13 +19,18 @@ from pypfopt import plotting
 # Streamlit Title
 st.title("Portfolio Optimization and Risk Analysis")
 
-# File Upload Section
-uploaded_file = st.file_uploader(r"/Users/deveshdembla/Documents/MVO_Assignment/MsciUS_Factors.xlsx"  , type=["xlsx"])
+default_file_url = "https://raw.githubusercontent.com/DeveshDembla/streamlit-app/main/MsciUS_Factors.xlsx"
 
-if uploaded_file:
+# File Upload Section
+uploaded_file = st.file_uploader("Upload excel file to change the default file" , type=["xlsx"])
+
+if uploaded_file is not None:
    
     # Step 1: Load Data
     data = pd.read_excel(uploaded_file, parse_dates=True, index_col=0)
+
+else:
+    data = pd.read_excel(default_file_url, parse_dates=True, index_col=0)
 
     # Data Cleaning
     for column in data.columns:
@@ -238,9 +243,17 @@ if uploaded_file:
 
     # Active Risk and Additional Metrics
     st.subheader("Benchmark relative metrics")
+    
+    #default benchmark url
+    def_bmk = "https://raw.githubusercontent.com/DeveshDembla/streamlit-app/main/MsciUSA_Bmk.xlsx"
+
     benchmark_file = st.file_uploader("Upload Benchmark Data (Excel)", type=["xlsx"])
-    if benchmark_file:
+    if benchmark_file is not None:
         bmk_data = pd.read_excel(benchmark_file, parse_dates=True, index_col=0)
+    else:
+        bmk_data = pd.read_excel(def_bmk, parse_dates=True, index_col=0)
+        
+        
         for column in bmk_data.columns:
             bmk_data[column] = bmk_data[column].replace(",", "", regex=True).astype(float)
             bmk_data[column] = pd.to_numeric(bmk_data[column], errors='coerce')
